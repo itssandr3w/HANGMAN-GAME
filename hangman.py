@@ -70,33 +70,29 @@ while run:
     # button press check function
     def check(letter,button):
         global count,win_count,run,score
-        exec('{}.destroy()'.format(button))
+        exec(f'{button}.destroy()')
         if letter in selected_word:
-            for i in range(0,len(selected_word)):
+            for i in range(len(selected_word)):
                 if selected_word[i] == letter:
                     win_count += 1
-                    exec('d{}.config(text="{}")'.format(i,letter.upper()))
+                    exec(f'd{i}.config(text="{letter.upper()}")')
             if win_count == len(selected_word):
                 score += 1
                 answer = messagebox.askyesno('GAME OVER','YOU WON!\nWANT TO PLAY AGAIN?')
-                if answer == True:
-                    run = True
-                    root.destroy()   
-                else:
-                    run = False
-                    root.destroy()
+                run = answer == True
+                root.destroy()
         else:
             count += 1
-            exec('c{}.destroy()'.format(count))
-            exec('c{}.place(x={},y={})'.format(count+1,300,-50))
+            exec(f'c{count}.destroy()')
+            exec(f'c{count + 1}.place(x=300,y=-50)')
             if count == 6:
                 answer = messagebox.askyesno('GAME OVER','YOU LOST!\nWANT TO PLAY AGAIN?')
                 if answer == True:
                     run = True
                     score = 0
-                    root.destroy()
                 else:
-                    run = False
-                    root.destroy()         
+                    run = False         
+
+                root.destroy()         
     root.mainloop()
 
